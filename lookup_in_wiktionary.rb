@@ -30,24 +30,29 @@ def File
     file.write("#{str}\n")
   end
 end
-
 word_file = File.new("in_words.txt")
 definition_file = File.new("definitions.txt", "w")
 word_file.readlines.each{|word|
   word.chomp!
   url = URI.parse("http://www.thefreedictionary.com/#{word}")
-  response = Net::HTTP.get(url)
-  page = response.to_s
+  page = Net::HTTP.get(url)
+  unless page
+    definition_file.puts "#{word}: **no response**"
+    next
+  end
   
   if index = /<div class="ds-list">/ =~ page
     page = page[index+20..-1]
 
     index = /<\/b>/ =~ page
     page = page[index+4..-1]
-  else
-    index = /<div class="ds-single">/ =~ page
+  elsif index = /<div class="ds-single">/ =~ page
     page = page[index+23..-1]
+  else
+    definition_file.puts"#{word}: **not found**"
+    next
   end
+
   index = /\./ =~page
   definition = page[0...index]
   definition_file.puts "#{word}: #{definition}"
