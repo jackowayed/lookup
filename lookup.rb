@@ -22,7 +22,29 @@
 #If you would like to use this software in some manner that violates the terms of the license, please contact me at: 
 #danjdel "at(@)" gmail "period(.)" com 
 #and ask for my consent. 
+#
+#
+#**USAGE:**
+#make a file called in_words.txt with all of the words you want defined, each on its own line
+#Example in_words.txt file (note: you don't want the "#"s at the beginning of each line):
+#foo
+#bar
+#word
+#etcetera
+#run lookup.rb with ruby (you can get ruby from http://www.ruby-lang.org if you don't have it)
+#a file definitions.txt will be created with your words and definitions
+#
+#
+#
+#__          __     _____  _   _ _____ _   _  _____ 
+#\ \        / /\   |  __ \| \ | |_   _| \ | |/ ____|
+# \ \  /\  / /  \  | |__) |  \| | | | |  \| | |  __ 
+#  \ \/  \/ / /\ \ |  _  /| . ` | | | | . ` | | |_ |
+#   \  /\  / ____ \| | \ \| |\  |_| |_| |\  | |__| |
+#    \/  \/_/    \_\_|  \_\_| \_|_____|_| \_|\_____|
 
+#
+#running the program WILL overwrite any existing file called defintions.txt that is in the same folder as lookup.rb
 
 
 require 'net/http'
