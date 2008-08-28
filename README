@@ -27,7 +27,7 @@ The text of the GPL can be found in the file COPYING
 **USAGE:**
 
 make a file called in_words.txt with all of the words you want defined, each on its own line
-Example in_words.txt file (note: you don't want the "#"s at the beginning of each line):
+Example in_words.txt file:
 foo
 bar
 word
