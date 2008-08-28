@@ -25,26 +25,32 @@
 require 'net/http'
 #require 'uri'
 
-#def File
-#  def puts str
-#    file.write("#{str}\n")
-#  end
-#end
+def File
+  def puts str
+    file.write("#{str}\n")
+  end
+end
 
 word_file = File.new("in_words.txt")
-definition_file = File.new("definitions.csv", "w")
+definition_file = File.new("definitions.txt", "w")
 word_file.readlines.each{|word|
-  puts word
+  word.chomp!
   url = URI.parse("http://www.thefreedictionary.com/#{word}")
   response = Net::HTTP.get(url)
   page = response.to_s
-  index = /<div class="ds-list">/ =~ page
-  page = page[index+20..-1]
-  index = /<\/b>/ =~ page
-  page = page[index+4..-1]
-  index = /<span/ =~page
+  
+  if index = /<div class="ds-list">/ =~ page
+    page = page[index+20..-1]
+
+    index = /<\/b>/ =~ page
+    page = page[index+4..-1]
+  else
+    index = /<div class="ds-single">/ =~ page
+    page = page[index+23..-1]
+  end
+  index = /\./ =~page
   definition = page[0...index]
-  definition_file.write "#{word}, #{definition}\n"
+  definition_file.puts "#{word}: #{definition}"
 
 }
 word_file.close
