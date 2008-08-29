@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!usr/bin/env ruby
 #
 # Created 27 August 2008 by Daniel Jackoway
 # This file will lookup words on http://www.thefreedictionary.com 
@@ -59,7 +59,7 @@ word_file = File.new("in_words.txt")
 definition_file = File.new("definitions.txt", "w")
 word_file.readlines.each{|word|
   word.chomp!
-  url = URI.parse("http://www.thefreedictionary.com/#{word}")
+  url = URI.parse("http://www.thefreedictionary.com/#{word.gsub(" ", "+")}")
   page = Net::HTTP.get(url)
   unless page
     definition_file.puts "#{word}: **no response**"
